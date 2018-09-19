@@ -46,7 +46,7 @@ public class OperationLogAspect {
     /**
      * 定义日志切入点
      */
-    @Pointcut("@annotation(com.mr.common.annotation.OperationLog)")
+    @Pointcut("@annotation(com.mr.data.common.annotation.OperationLog)")
     public void logPointCut(){
     }
 

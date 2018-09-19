@@ -18,7 +18,7 @@
 
         <!--通用Mapper生成插件-->
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
-            <property name="mappers" value="com.mr.common.base.mapper.BaseMapper"/>
+            <property name="mappers" value="com.mr.data.common.base.mapper.BaseMapper"/>
         </plugin>
 
         <!--数据库连接 -->
