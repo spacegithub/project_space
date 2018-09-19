@@ -166,7 +166,8 @@ password: Root@1234
 download-dir: G:/home/fengjiang/Documents
 #download-dir: /home/fengjiang/Documents
 ic-url: http://112.65.144.19:10003/edh/api
-
+#产品编码 多个拿英文逗号","隔开
+prodCode: 301
 
 
 
