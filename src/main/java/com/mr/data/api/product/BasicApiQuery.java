@@ -1,6 +1,6 @@
 package com.mr.data.api.product;
 
-import com.mr.data.common.constant.SystemConstant;
+import com.mr.data.common.constant.BusinessConstant;
 import com.mr.data.common.exception.BusiException;
 import org.apache.commons.lang3.StringUtils;
 
@@ -50,8 +50,8 @@ public abstract class BasicApiQuery {
      * */
     public Object createSuccessResultObject(String transId,Object result){
         Map<String,Object> map =new HashMap<String,Object>();
-        map.put("retCode", SystemConstant.RTN_CODE_SUCCESS);
-        map.put("retMsg", SystemConstant.RTN_MSG_SUCCESS);
+        map.put("retCode", BusinessConstant.RTN_CODE_SUCCESS);
+        map.put("retMsg", BusinessConstant.RTN_MSG_SUCCESS);
         map.put("transId", transId);
         if(result!=null){
             map.put("result", result);
@@ -65,8 +65,8 @@ public abstract class BasicApiQuery {
      * */
     public Object createFailResultObject(String transId){
         Map<String,Object> map =new HashMap<String,Object>();
-        map.put("retCode", SystemConstant.RTN_CODE_FAIL);
-        map.put("retMsg", SystemConstant.RTN_MSG_FAIL);
+        map.put("retCode", BusinessConstant.RTN_CODE_FAIL);
+        map.put("retMsg", BusinessConstant.RTN_MSG_FAIL);
         map.put("transId", transId);
         return map;
     }

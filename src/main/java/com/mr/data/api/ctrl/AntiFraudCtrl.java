@@ -2,7 +2,7 @@ package com.mr.data.api.ctrl;
 
 import com.mr.data.api.product.BasicApiQuery;
 import com.mr.data.api.service.AntiFraudApiService;
-import com.mr.data.common.constant.SystemConstant;
+import com.mr.data.common.constant.BusinessConstant;
 import com.mr.data.common.exception.BusiException;
 import com.mr.data.common.util.ParamUtil;
 import com.mr.data.common.util.ProdCheckUtil;
@@ -65,10 +65,10 @@ public class AntiFraudCtrl {
 
             if(result!=null){
                 rtnObj = apiProduct.createSuccessResultObject(tranId,result);
-                updateQryInfo(tranId,rtnObj,SystemConstant.QRY_STATUS_S);
+                updateQryInfo(tranId,rtnObj,BusinessConstant.QRY_STATUS_S);
             }else{
                 rtnObj = apiProduct.createFailResultObject(tranId);
-                updateQryInfo(tranId,rtnObj,SystemConstant.QRY_STATUS_F);
+                updateQryInfo(tranId,rtnObj,BusinessConstant.QRY_STATUS_F);
             }
 
         }catch (Exception e){
@@ -96,7 +96,7 @@ public class AntiFraudCtrl {
         QryInfo qryInfo = new QryInfo();
         qryInfo.setQryId(tranId);
         qryInfo.setQryParam(qryParam);
-        qryInfo.setStatus(SystemConstant.QRY_STATUS_Q);
+        qryInfo.setStatus(BusinessConstant.QRY_STATUS_Q);
         qryInfoMapper.insert(qryInfo);
     }
 
