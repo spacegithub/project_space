@@ -23,7 +23,7 @@
 
         <!--数据库连接 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://47.100.7.81:3306/data_factory_xu?useSSL=false"
+                        connectionURL="jdbc:mysql://47.100.7.81:3306/data_ft?useSSL=false"
                         userId="root"
                         password="Root@1234">
         </jdbcConnection>
@@ -34,7 +34,7 @@
            注意：如果在key class或者record class中有root class相同的属性，MBG就不会重新生成这些属性了，包括：
                1，属性名相同，类型相同，有相同的getter/setter方法；
         -->
-            <property name="rootClass" value="com.mr.common.base.model.BaseEntity"/>
+            <property name="rootClass" value="com.mr.data.common.base.model.BaseEntity"/>
         </javaModelGenerator>
 
         <sqlMapGenerator targetPackage="mapper" targetProject="./src/main/resources"/>
@@ -96,7 +96,21 @@
             &lt;!&ndash;oracle 配置&ndash;&gt;
             &lt;!&ndash;<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>&ndash;&gt;
         </table>-->
-        <table tableName="MR_ADMIN_PUNISH">
+        <table tableName="ent_info_tmp">
+            <!--mysql 配置-->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+            <!--oracle 配置-->
+            <!--<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>-->
+        </table>
+        <table tableName="qry_info">
+        </table>
+        <table tableName="black_name_i">
+            <!--mysql 配置-->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+            <!--oracle 配置-->
+            <!--<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>-->
+        </table>
+        <table tableName="black_name_e">
             <!--mysql 配置-->
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
             <!--oracle 配置-->

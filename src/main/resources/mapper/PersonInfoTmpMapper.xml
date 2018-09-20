@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mr.modules.api.mapper.PersonInfoTmpMapper" >
+  <resultMap id="BaseResultMap" type="com.mr.modules.api.model.PersonInfoTmp" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="person_type" property="personType" jdbcType="VARCHAR" />
+    <result column="person_id" property="personId" jdbcType="VARCHAR" />
+    <result column="person_phonenum" property="personPhonenum" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectCountByKey" parameterType="java.lang.String" resultType="Integer">
+    select count(1) from person_info_tmp where person_name=#{personName} and person_id=#{personId}
+  </select>
+</mapper>

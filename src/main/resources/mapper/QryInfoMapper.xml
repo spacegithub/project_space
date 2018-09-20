@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mr.modules.api.mapper.QryInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.mr.modules.api.model.QryInfo" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="qry_id" property="qryId" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updatedAt" jdbcType="VARCHAR" />
+    <result column="QRY_PARAM" property="qryParam" jdbcType="VARCHAR" />
+    <result column="QRY_RST" property="qryRst" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

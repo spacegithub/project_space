@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mr.modules.api.mapper.BlackNameIMapper" >
+  <resultMap id="BaseResultMap" type="com.mr.modules.api.model.BlackNameI" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="person_type" property="personType" jdbcType="VARCHAR" />
+    <result column="person_id" property="personId" jdbcType="VARCHAR" />
+    <result column="person_phonenum" property="personPhonenum" jdbcType="VARCHAR" />
+    <result column="punish_type" property="punishType" jdbcType="VARCHAR" />
+    <result column="judge_no" property="judgeNo" jdbcType="VARCHAR" />
+    <result column="judge_date" property="judgeDate" jdbcType="VARCHAR" />
+    <result column="judge_auth" property="judgeAuth" jdbcType="VARCHAR" />
+    <result column="publish_date" property="publishDate" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="punish_reason" property="punishReason" jdbcType="LONGVARCHAR" />
+    <result column="punish_according" property="punishAccording" jdbcType="LONGVARCHAR" />
+    <result column="punish_result" property="punishResult" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <select id="selectBlackName" parameterType="com.mr.modules.api.model.BlackNameI" resultMap="BaseResultMap">
+    select * from black_name_i where person_name=#{personName} and SUBSTRING(person_id,1,10)=SUBSTRING(#{personId},1,10)
+    and SUBSTRING(person_id,17,18)=SUBSTRING(#{personId},17,18)
+  </select>
+</mapper>

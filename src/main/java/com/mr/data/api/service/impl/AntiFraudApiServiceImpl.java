@@ -17,6 +17,8 @@ import java.util.Map;
 @Service
 @Slf4j
 public class AntiFraudApiServiceImpl implements AntiFraudApiService {
+
+
     @Override
     public BasicApiQuery getApiProduct(String prodCode) {
         String fullProdCode = "P"+prodCode;

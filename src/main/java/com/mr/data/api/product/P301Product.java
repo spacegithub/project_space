@@ -1,9 +1,12 @@
 package com.mr.data.api.product;
 
-import com.mr.data.common.exception.BusiException;
-import org.apache.commons.lang3.StringUtils;
 
-import java.util.HashMap;
+import com.mr.modules.api.mapper.BlackNameIMapper;
+import com.mr.modules.api.model.BlackNameI;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import javax.annotation.PostConstruct;
 import java.util.Map;
 
 /**
@@ -11,36 +14,32 @@ import java.util.Map;
  * @Description: 风险名单
  * @Date: Created in 2018/9/19 17:27
  */
+@Component
+@Slf4j
 public class P301Product extends BasicApiQuery{
 
-    private static Map<String,String> REQUIRED_QRY_ARGS=new HashMap<String,String>();
+    @Autowired
+    public BlackNameIMapper blackNameIMapper;
 
-    static{
-        REQUIRED_QRY_ARGS.put("service_id","service_id");
-        REQUIRED_QRY_ARGS.put("idCard","idCard");
-        REQUIRED_QRY_ARGS.put("name","name");
-        REQUIRED_QRY_ARGS.put("mobile","mobile");
-    }
+    public static P301Product  p301Product ;
 
-    @Override
-    public void checkArgs(Map args) {
-        for(Object key:args.keySet()){
-            if (!REQUIRED_QRY_ARGS.keySet().contains(key))//只能是其中的入参
-                throw new BusiException("查询参数校验不通过,非法参数:"+key);
-        }
-        for(String required:REQUIRED_QRY_ARGS.keySet()){
-            Object vO=args.get(required);
-            boolean isStringNotBlank=vO instanceof String?StringUtils.isNotBlank((String)vO):false;//必须是String类型，且非空
-            if (!isStringNotBlank){
-                throw new BusiException("查询参数校验不通过,未提供有效查询参数值:"+required);
-            }
-
-        }
+    @PostConstruct //通过@PostConstruct实现初始化bean之前进行的操作
+    public void init() {
+        p301Product = this;
+        p301Product.blackNameIMapper = this.blackNameIMapper;
     }
 
     @Override
     public Object query(Map map) {
+        log.info("开始查询风险名单,参数为： {}",map.toString());
         // 增加处理逻辑
-        return null;
+        String personId = (String)map.get("idCard");
+        String personName = (String)map.get("realName");
+        BlackNameI blackNameI = new BlackNameI();
+        blackNameI.setPersonName(personName);
+        blackNameI.setPersonId(personId);
+        BlackNameI selBlackName =  this.p301Product.blackNameIMapper.selectBlackName(blackNameI); //通过反射得到的对象，blackNameIMapper为null,所以通过这种方式取得blackNameIMapper
+        log.info("处理完毕...");
+        return selBlackName;
     }
 }
