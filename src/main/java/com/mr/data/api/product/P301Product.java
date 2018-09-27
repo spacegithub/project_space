@@ -8,10 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author: zqzhou
@@ -25,7 +22,14 @@ public class P301Product extends BasicApiQuery{
     @Autowired
     public BlackNameIMapper blackNameIMapper;
 
-    public static P301Product  p301Product ;
+    public static P301Product  p301Product;
+
+    //具有详情的原因set
+    private static Set<String> detailResonSet = new HashSet<String>();
+    static{
+        detailResonSet.add(BusinessConstant.LFIC_CODE);//法院失信
+        detailResonSet.add(BusinessConstant.ADMP_CODE);//行政处罚
+    }
 
     @PostConstruct //通过@PostConstruct实现初始化bean之前进行的操作
     public void init() {
@@ -51,23 +55,23 @@ public class P301Product extends BasicApiQuery{
             retMap.put("blackMatch","1");
             List blackReasons = new ArrayList();
             BlackNameI blackNameITmp = null;
+            Map<String,Object> blackDetails = new HashMap<String,Object>();
             for(int i=0;i<list.size();i++){
                 blackNameITmp = list.get(i);
                 String subject = blackNameITmp.getSubject();
                 String blackReason = findReason(subject);
                 blackReasons.add(blackReason);
-                if(blackReason.equalsIgnoreCase(BusinessConstant.LFIC_CODE)){
+                if(detailResonSet.contains(blackReason)){
                     List detailList = new ArrayList();
-                    detailList.add(fillDetailMap(blackNameITmp));
-                    Map<String,Object> blackDetails = new HashMap<String,Object>();
+                    detailList.add(fillDetailMap(blackNameITmp,blackReason));
                     blackDetails.put(blackReason,detailList);
-                    retMap.put("blackDetails",blackDetails);
                 }
             }
+            retMap.put("blackDetails",blackDetails);
             retMap.put("blackReason",fillReason(blackReasons));
             retObj = retMap;
         }
-        log.info("处理完毕...");
+        log.info("处理完毕...结果为 {}",retObj);
         return retObj;
     }
 
@@ -79,26 +83,61 @@ public class P301Product extends BasicApiQuery{
             reason = BusinessConstant.FRUAD_CODE;
         }else if(BusinessConstant.LFIC.contains(subject)){
             reason = BusinessConstant.LFIC_CODE;
+        }else if(BusinessConstant.ADMP.contains(subject)){
+            reason = BusinessConstant.ADMP_CODE;
         }
         return reason;
     }
 
-    public Map fillDetailMap(BlackNameI blackNameI){
+    public Map fillDetailMap(BlackNameI blackNameI,String resson){
         Map map = new HashMap();
-        map.put("performance",blackNameI.getPunishReason());
-        map.put("publishDate",blackNameI.getPublishDate());
-        map.put("duty",blackNameI.getPunishResult());
-        map.put("disruptTypeName",BusinessConstant.disruptTypeName);
+        if(resson.equalsIgnoreCase(BusinessConstant.LFIC_CODE)){
+            map = fillDetailMapByLFIC(blackNameI);
+        }else if(resson.equalsIgnoreCase(BusinessConstant.ADMP_CODE)){
+            map = fillDetailMapByADMP(blackNameI);
+        }
         return map;
     }
 
     public String fillReason(List list){
         StringBuilder stringBuilder = new StringBuilder();
         for(int j=0;j<list.size();j++){
+            if(stringBuilder.toString().contains((String)list.get(j))){
+                continue;
+            }
             stringBuilder.append(list.get(j)).append(":");
         }
         String reasons = stringBuilder.toString();
         reasons = reasons.substring(0,reasons.lastIndexOf(":"));
         return reasons;
+    }
+
+    /***
+     * 法院失信
+     * */
+    public Map fillDetailMapByLFIC(BlackNameI blackNameI){
+        Map map = new HashMap();
+        map.put("performance",blackNameI.getPunishReason());
+        map.put("publishDate",blackNameI.getPublishDate());
+        map.put("duty",blackNameI.getPunishResult());
+        map.put("case_no",blackNameI.getJudgeNo());
+        map.put("disruptTypeName",BusinessConstant.disruptTypeName);
+        return map;
+    }
+    /**
+     * 行政处罚
+     * */
+    public Map fillDetailMapByADMP(BlackNameI blackNameI){
+        Map map = new HashMap();
+        map.put("cf_wsh",blackNameI.getJudgeNo());
+        map.put("cf_cfmc",blackNameI.getSubject());
+        map.put("cf_sy",blackNameI.getPunishReason());
+        map.put("cf_jg",blackNameI.getPunishResult());
+        map.put("cf_xzjg",blackNameI.getJudgeAuth());
+        map.put("reg_date",blackNameI.getJudgeDate());
+        return map;
+    }
+    public static void main(String[] args) {
+
     }
 }

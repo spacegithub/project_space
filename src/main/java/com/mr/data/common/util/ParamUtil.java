@@ -17,8 +17,8 @@ public class ParamUtil {
         Map<String, String[]> tempMap = request.getParameterMap();
         Set<String> keys = tempMap.keySet();
         for (String key : keys) {
-            byte source [] = request.getParameter(key).getBytes("iso8859-1");
-            String modelname = new String (source,"UTF-8");
+            byte source [] = request.getParameter(key).getBytes("UTF-8");
+            String modelname = new String (source);
             resultMap.put(key,modelname);
         }
         return resultMap;

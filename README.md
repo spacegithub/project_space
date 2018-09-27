@@ -74,3 +74,36 @@ errcode	错误代码	0代表成功
 errmsg	错误说明	
 access_token	token值	errcode为0时才有数据
 expires_in	有效期时间	单位为小时
+
+
+
+
+
+
+#内部接口服务说明
+##1.反欺诈类
++ 请求方式：http+post
++ 接口地址：
+```
+ http://ip:port/bigData/antifraudapi/query
+```
++ 请求参数：
+```
+名称          必填    类型         说明
+service_id   是      string      服务ID，对应内部的产品ID
+idCard       是      string      身份证号 
+realName     是      string      姓名
+mobile       是      string      手机号码
+```
+
++ 输出参数：
+```
+名称	         含义	         必填	类型	    说明
+retCode	     错误码	         是	    string	0代表成功
+retMsg	     错误信息	         是	    string	
+transId	     交易流水号	     是	    string	用于交易跟踪
+result	     结果信息	         否	    json	retCode为0时才有此信息
+blackMatch	 是否匹配风险名单	 是	    int	    0-未匹配,1-匹配
+blackReason 风险名单原因	     否	    string	参考下方返回值 blackReason 和 blackDetails 详情解释
+blackDetail 风险名单详情	     否	    json	参考下方返回值 blackReason 和 blackDetails 详情解释
+```

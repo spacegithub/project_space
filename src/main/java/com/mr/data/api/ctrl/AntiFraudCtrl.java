@@ -43,7 +43,7 @@ public class AntiFraudCtrl {
     public PersonInfoTmpMapper personInfoTmpMapper;
 
 
-    @RequestMapping(value = "/query", method = {RequestMethod.GET})
+    @RequestMapping(value = "/query")
     public Object query(HttpServletRequest request, HttpServletResponse response){
         Object rtnObj = null;
         try{

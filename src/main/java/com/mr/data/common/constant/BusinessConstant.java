@@ -29,6 +29,7 @@ public class BusinessConstant {
      * */
     public static final String FRUAD = "个人不良诚信记录"; //欺诈类
     public static final String LFIC = "失信被执行人"; //法院失信
+    public static final String ADMP = "行政处罚决定"; //行政处罚
     public static final String disruptTypeName = "有履行能力而拒不履行生效法律文书确定义务"; //违反条例（默认）
 
 
@@ -37,7 +38,7 @@ public class BusinessConstant {
      * */
     public static final String FRUAD_CODE = "C03BT004";
     public static final String LFIC_CODE = "C06BT020";
-
+    public static final String ADMP_CODE = "C06BT025";
 
 
 }
