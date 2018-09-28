@@ -36,4 +36,8 @@
     and SUBSTRING(person_id,17,18)=SUBSTRING(#{personId},17,18)
   </select>
 
+  <select id="findAllByName" parameterType="com.mr.modules.api.model.BlackNameI" resultMap="BaseResultMap">
+    select * from black_name_i where person_name=#{personName}
+  </select>
+
 </mapper>

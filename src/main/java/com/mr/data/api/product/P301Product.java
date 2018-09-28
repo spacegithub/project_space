@@ -2,6 +2,7 @@ package com.mr.data.api.product;
 
 
 import com.mr.data.common.constant.BusinessConstant;
+import com.mr.data.common.util.CompareUtil;
 import com.mr.modules.api.mapper.BlackNameIMapper;
 import com.mr.modules.api.model.BlackNameI;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +50,9 @@ public class P301Product extends BasicApiQuery{
         BlackNameI blackNameI = new BlackNameI();
         blackNameI.setPersonName(personName);
         blackNameI.setPersonId(personId);
-        List<BlackNameI> list = mapper.findAll(blackNameI);
+    //    List<BlackNameI> list = mapper.findAll(blackNameI);
+        List<BlackNameI> list = mapper.findAllByName(blackNameI);
+        list = getFinalList(list,personId);
         if(list.size()>0){
             Map retMap = new HashMap();
             retMap.put("blackMatch","1");
@@ -134,10 +137,33 @@ public class P301Product extends BasicApiQuery{
         map.put("cf_sy",blackNameI.getPunishReason());
         map.put("cf_jg",blackNameI.getPunishResult());
         map.put("cf_xzjg",blackNameI.getJudgeAuth());
-        map.put("reg_date",blackNameI.getJudgeDate());
+        map.put("reg_date",blackNameI.getPublishDate());
         return map;
     }
-    public static void main(String[] args) {
 
+    /**
+     * 获取相似度,若达到0.75以上，视为同一个
+     * */
+    public boolean isSame(String idCard,String personId){
+       boolean flag = true;
+       if(CompareUtil.getSimilarityRatio(idCard,personId)<0.75){
+           flag=false;
+       }
+       return flag;
     }
+
+
+    /**
+     * 获取满足要求的list
+     * */
+    public List<BlackNameI> getFinalList(List<BlackNameI> list,String idCard){
+        List<BlackNameI> finalList = new ArrayList();
+        for(int i=0;i<list.size();i++){
+            if(isSame(idCard,list.get(i).getPersonId())){
+                finalList.add(list.get(i));
+            }
+        }
+        return finalList;
+    }
+
 }

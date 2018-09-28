@@ -10,4 +10,7 @@ public interface BlackNameIMapper extends BaseMapper<BlackNameI> {
     BlackNameI selectBlackName(BlackNameI blackNameI);
 
     List<BlackNameI> findAll(BlackNameI t);
+
+    List<BlackNameI> findAllByName(BlackNameI t);
+
 }
