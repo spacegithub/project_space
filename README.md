@@ -104,6 +104,6 @@ retMsg	     错误信息	         是	    string
 transId	     交易流水号	     是	    string	用于交易跟踪
 result	     结果信息	         否	    json	retCode为0时才有此信息
 blackMatch	 是否匹配风险名单	 是	    int	    0-未匹配,1-匹配
-blackReason 风险名单原因	     否	    string	参考下方返回值 blackReason 和 blackDetails 详情解释
-blackDetail 风险名单详情	     否	    json	参考下方返回值 blackReason 和 blackDetails 详情解释
+blackReason  风险名单原因	     否	    string	参考下方返回值 blackReason 和 blackDetails 详情解释
+blackDetail  风险名单详情	     否	    json	参考下方返回值 blackReason 和 blackDetails 详情解释
 ```
