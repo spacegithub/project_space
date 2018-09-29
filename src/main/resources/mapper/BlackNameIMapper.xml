@@ -27,17 +27,17 @@
   </resultMap>
 
   <select id="selectBlackName" parameterType="com.mr.modules.api.model.BlackNameI" resultMap="BaseResultMap">
-    select * from black_name_i where person_name=#{personName} and SUBSTRING(person_id,1,10)=SUBSTRING(#{personId},1,10)
+    select source,subject,person_id,judge_no,judge_date,judge_auth,publish_date,status,punish_reason,punish_according,punish_result from black_name_i where person_name=#{personName} and SUBSTRING(person_id,1,10)=SUBSTRING(#{personId},1,10)
     and SUBSTRING(person_id,17,18)=SUBSTRING(#{personId},17,18)
   </select>
 
   <select id="findAll" parameterType="com.mr.modules.api.model.BlackNameI" resultMap="BaseResultMap">
-    select * from black_name_i where person_name=#{personName} and SUBSTRING(person_id,1,10)=SUBSTRING(#{personId},1,10)
+    select source,subject,person_id,judge_no,judge_date,judge_auth,publish_date,status,punish_reason,punish_according,punish_result from black_name_i where person_name=#{personName} and SUBSTRING(person_id,1,10)=SUBSTRING(#{personId},1,10)
     and SUBSTRING(person_id,17,18)=SUBSTRING(#{personId},17,18)
   </select>
 
   <select id="findAllByName" parameterType="com.mr.modules.api.model.BlackNameI" resultMap="BaseResultMap">
-    select * from black_name_i where person_name=#{personName}
+    select source,subject,person_id,judge_no,judge_date,judge_auth,publish_date,status,punish_reason,punish_according,punish_result from black_name_i where person_name=#{personName}
   </select>
 
 </mapper>
