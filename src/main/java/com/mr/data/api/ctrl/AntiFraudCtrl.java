@@ -48,6 +48,7 @@ public class AntiFraudCtrl {
         Object rtnObj = null;
         try{
             Map paraMap = ParamUtil.getParamMap(request);
+            log.info("接收到的请求参数为：{}",paraMap.toString());
             String service_id = (String)paraMap.get("service_id");
             //检查产品是否存在
             if(!ProdCheckUtil.checkIsExist(service_id)){
